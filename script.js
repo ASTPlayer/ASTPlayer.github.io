@@ -319,10 +319,9 @@ in the same long line.
 let playlists = [{ title: "Anime", songIndices: [0, 1, 2] }];
 
 const discoverItems = [
-  { title: "Soft Motion", genre: "Lo-Fi", cover: "images/cover2.jpg" },
-  { title: "Static Air", genre: "Ambient", cover: "images/cover3.jpg" },
-  { title: "Orange Hour", genre: "Hip Hop", cover: "images/cover1.jpg" },
-  { title: "Slow Circuit", genre: "Electronic", cover: "images/cover3.jpg" },
+  { title: "Waifus", genre: "J-Pop Trap", cover: "images/Waifus.png" },
+  { title: "PaperFlowerGate", genre: "J-Pop Ballad", cover: "images/PFG.png" },
+  { title: "ShuttleAndHoop", genre: "J-Pop Swing", cover: "images/SaH.png" },
 ];
 
 const notifications = [
