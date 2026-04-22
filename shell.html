@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>𝗔𝗦𝘁𝘂𝗱𝗶𝗼𝘀 ᴡᴇʙ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      html,
+      body {
+        height: 100%;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+      }
+
+      .shell-topbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 50;
+      }
+
+      .shell-iframe {
+        position: fixed;
+        top: 60px; /* height of your topbar */
+        bottom: 90px; /* height of your player bar */
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: calc(100% - 60px - 90px);
+        border: none;
+      }
+
+      .shell-player {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 50;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Icons needed by topbar and player -->
+    <svg class="icon-sprite" aria-hidden="true" focusable="false">
+      <symbol id="icon-search" viewBox="0 0 24 24">
+        <path d="m21 21-4.35-4.35m1.85-5.15a7 7 0 1 1-14 0 7 7 0 0 1 14 0" />
+      </symbol>
+      <symbol id="icon-bell" viewBox="0 0 24 24">
+        <path
+          d="M15 17H5.8a1.8 1.8 0 0 1-1.5-2.8L6 11.8V9a6 6 0 1 1 12 0v2.8l1.7 2.4A1.8 1.8 0 0 1 18.2 17H15m0 0a3 3 0 0 1-6 0"
+        />
+      </symbol>
+      <symbol id="icon-settings" viewBox="0 0 24 24">
+        <path
+          d="m19.4 13 .1-1-.1-1 2-1.6-2-3.4-2.4 1a8.8 8.8 0 0 0-1.7-1l-.4-2.6h-4l-.4 2.6a8.8 8.8 0 0 0-1.7 1l-2.4-1-2 3.4 2 1.6-.1 1 .1 1-2 1.6 2 3.4 2.4-1a8.8 8.8 0 0 0 1.7 1l.4 2.6h4l.4-2.6a8.8 8.8 0 0 0 1.7-1l2.4 1 2-3.4zM12 15.5A3.5 3.5 0 1 1 12 8a3.5 3.5 0 0 1 0 7.5"
+        />
+      </symbol>
+      <symbol id="icon-play" viewBox="0 0 24 24">
+        <path d="m8 5 11 7-11 7z" />
+      </symbol>
+      <symbol id="icon-pause" viewBox="0 0 24 24">
+        <path d="M8 5h3v14H8zm5 0h3v14h-3z" />
+      </symbol>
+      <symbol id="icon-prev" viewBox="0 0 24 24">
+        <path d="M6 5h2v14H6zm3.5 7 8.5-7v14z" />
+      </symbol>
+      <symbol id="icon-next" viewBox="0 0 24 24">
+        <path d="M16 5h2v14h-2zM6 19V5l8.5 7z" />
+      </symbol>
+      <symbol id="icon-shuffle" viewBox="0 0 24 24">
+        <path
+          d="M16 4h4v4m0 8v4h-4M4 7h3c2 0 3 .7 4.2 2.5l4.6 7C17 18.3 18 19 20 19M20 5c-2 0-3 .7-4.2 2.5l-1.1 1.6M4 17h3c2 0 3-.7 4.2-2.5l1.1-1.6"
+        />
+      </symbol>
+      <symbol id="icon-repeat" viewBox="0 0 24 24">
+        <path
+          d="M17 2l4 4-4 4V7H9a3 3 0 0 0-3 3v1M7 22l-4-4 4-4v3h8a3 3 0 0 0 3-3v-1"
+        />
+      </symbol>
+      <symbol id="icon-volume" viewBox="0 0 24 24">
+        <path
+          d="M5 14H2v-4h3l5-4v12zm9.5-6a4 4 0 0 1 0 8m2.5-11a8 8 0 0 1 0 14"
+        />
+      </symbol>
+    </svg>
+
+    <!-- Topbar -->
+    <header class="global-topbar shell-topbar">
+      <div class="topbar-section topbar-left">
+        <label class="search-shell topbar-search" aria-label="Search">
+          <svg><use href="#icon-search"></use></svg>
+          <input
+            id="searchInput"
+            type="search"
+            placeholder="Search tracks, artists, genres"
+          />
+        </label>
+      </div>
+      <a
+        target="content"
+        class="topbar-logo"
+        href="#"
+        onclick="
+          document.getElementById('contentFrame').src = 'index.html';
+          return false;
+        "
+        aria-label="AStudios home"
+      >
+        <img
+          style="width: auto; height: 3rem"
+          src="images/logo.png"
+          alt="AStudios logo"
+        />
+      </a>
+      <div class="topbar-section topbar-right">
+        <span class="live-status"><span class="live-dot"></span>Live</span>
+        <button
+          class="icon-button topbar-icon"
+          id="notificationsButton"
+          type="button"
+          aria-label="Notifications"
+          aria-expanded="false"
+        >
+          <svg><use href="#icon-bell"></use></svg>
+        </button>
+        <button
+          class="icon-button topbar-icon"
+          id="settingsButton"
+          type="button"
+          aria-label="Settings"
+          aria-expanded="false"
+        >
+          <svg><use href="#icon-settings"></use></svg>
+        </button>
+
+        <section class="topbar-popup settings-popup" id="settingsPopup" hidden>
+          <div class="popup-header">
+            <div>
+              <h3>Appearance</h3>
+              <p>Adjust theme, color, and interface details.</p>
+            </div>
+          </div>
+          <div class="settings-group">
+            <span class="settings-label">Theme</span>
+            <div class="theme-options" id="themeOptions">
+              <button
+                class="setting-pill active"
+                type="button"
+                data-theme="night"
+              >
+                Night
+              </button>
+              <button class="setting-pill" type="button" data-theme="graphite">
+                Graphite
+              </button>
+              <button class="setting-pill" type="button" data-theme="paper">
+                Paper
+              </button>
+            </div>
+          </div>
+          <div class="settings-group">
+            <span class="settings-label">Main color</span>
+            <div class="accent-options" id="accentOptions">
+              <button
+                class="accent-swatch active"
+                type="button"
+                data-accent="orange"
+                aria-label="Muted orange"
+              ></button>
+              <button
+                class="accent-swatch"
+                type="button"
+                data-accent="copper"
+                aria-label="Copper"
+              ></button>
+              <button
+                class="accent-swatch"
+                type="button"
+                data-accent="sand"
+                aria-label="Sand"
+              ></button>
+              <button
+                class="accent-swatch"
+                type="button"
+                data-accent="rose"
+                aria-label="Rose"
+              ></button>
+            </div>
+          </div>
+          <div class="settings-group">
+            <span class="settings-label">More options</span>
+            <div class="settings-toggles">
+              <label class="toggle-row"
+                ><span>Compact density</span
+                ><input id="compactDensityToggle" type="checkbox"
+              /></label>
+              <label class="toggle-row"
+                ><span>Live pulse</span
+                ><input id="livePulseToggle" type="checkbox" checked
+              /></label>
+              <label class="toggle-row"
+                ><span>Waveform motion</span
+                ><input id="waveMotionToggle" type="checkbox" checked
+              /></label>
+            </div>
+          </div>
+        </section>
+      </div>
+    </header>
+
+    <!-- Content iframe — all pages load in here -->
+    <iframe
+      class="shell-iframe"
+      id="contentFrame"
+      target="content"
+      src="index.html"
+      name="content"
+    ></iframe>
+
+    <!-- Persistent player — never unloads -->
+    <footer class="player shell-player" id="player" aria-label="Music player">
+      <div class="player-track">
+        <img
+          target="content"
+          id="playerCover"
+          src="images/cover1.jpg"
+          alt="Current track cover art"
+          style="
+            cursor: pointer;
+            transition:
+              opacity 0.15s,
+              transform 0.2s;
+          "
+          onclick="
+            document.getElementById('contentFrame').src = 'now-playing.html'
+          "
+          onmouseover="
+            this.style.opacity = '0.8';
+            this.style.transform = 'scale(1.05)';
+          "
+          onmouseout="
+            this.style.opacity = '1';
+            this.style.transform = 'scale(1)';
+          "
+        />
+        <div class="player-track-copy">
+          <strong id="playerTitle">Track 1</strong>
+          <span id="playerArtist">AStudios</span>
+        </div>
+      </div>
+      <div class="player-controls">
+        <div class="transport-row">
+          <button
+            class="icon-button"
+            id="shuffleButton"
+            type="button"
+            aria-label="Shuffle"
+          >
+            <svg><use href="#icon-shuffle"></use></svg>
+          </button>
+          <button
+            class="icon-button"
+            id="prevButton"
+            type="button"
+            aria-label="Previous"
+          >
+            <svg><use href="#icon-prev"></use></svg>
+          </button>
+          <button
+            class="play-toggle"
+            id="playPauseButton"
+            type="button"
+            aria-label="Play"
+          >
+            <svg class="icon-play"><use href="#icon-play"></use></svg>
+            <svg class="icon-pause"><use href="#icon-pause"></use></svg>
+            <span class="sr-only play-label">Play</span>
+          </button>
+          <button
+            class="icon-button"
+            id="nextButton"
+            type="button"
+            aria-label="Next"
+          >
+            <svg><use href="#icon-next"></use></svg>
+          </button>
+          <button
+            class="icon-button"
+            id="repeatButton"
+            type="button"
+            aria-label="Repeat"
+          >
+            <svg><use href="#icon-repeat"></use></svg>
+          </button>
+        </div>
+        <div class="progress-row">
+          <div class="wave-visualizer" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span
+            ><span></span><span></span><span></span>
+          </div>
+          <input
+            id="progressBar"
+            step="0.001"
+            type="range"
+            min="0"
+            max="100"
+            value="0"
+            aria-label="Track progress"
+          />
+          <span class="time-left" id="timeLeft">-0:00</span>
+        </div>
+      </div>
+      <div class="player-volume">
+        <svg><use href="#icon-volume"></use></svg>
+        <input
+          id="volumeBar"
+          type="range"
+          min="0"
+          max="100"
+          value="80"
+          aria-label="Volume"
+        />
+      </div>
+    </footer>
+
+    <audio id="audioPlayer" preload="metadata"></audio>
+    <script src="script.js"></script>
+  </body>
+</html>

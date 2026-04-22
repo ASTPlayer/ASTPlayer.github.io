@@ -1,0 +1,1016 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Playlists · AStudios</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* ── Playlists Page ── */
+      .pl-shell {
+        padding: 2.5rem 2.5rem 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      /* ── Page header ── */
+      .pl-page-header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        margin-bottom: 2.5rem;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .pl-page-header h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        color: var(--text-1);
+        margin: 0 0 0.25rem;
+        line-height: 1.1;
+      }
+
+      .pl-page-header p {
+        font-size: 0.85rem;
+        color: var(--text-3);
+        margin: 0;
+      }
+
+      .pl-new-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.82rem;
+        font-weight: 600;
+        padding: 0.55rem 1.1rem;
+        border-radius: 100px;
+        background: var(--accent);
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        transition:
+          opacity 0.15s,
+          transform 0.15s;
+        white-space: nowrap;
+      }
+
+      .pl-new-btn:hover {
+        opacity: 0.88;
+        transform: translateY(-1px);
+      }
+
+      .pl-new-btn svg {
+        width: 14px;
+        height: 14px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2.5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      /* ── Playlist grid ── */
+      .pl-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 1.25rem;
+        margin-bottom: 3rem;
+      }
+
+      .pl-card {
+        background: var(--surface-1);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        overflow: hidden;
+        cursor: pointer;
+        transition:
+          border-color 0.2s,
+          transform 0.2s,
+          box-shadow 0.2s;
+        position: relative;
+      }
+
+      .pl-card:hover {
+        border-color: var(--accent);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+      }
+
+      /* Mosaic cover art */
+      .pl-card-cover {
+        position: relative;
+        aspect-ratio: 1;
+        overflow: hidden;
+        background: var(--surface-2);
+      }
+
+      .pl-card-cover .mosaic {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        width: 100%;
+        height: 100%;
+      }
+
+      .pl-card-cover .mosaic img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      /* Single cover (1 track) */
+      .pl-card-cover .mosaic.single img:first-child {
+        grid-column: 1 / -1;
+        grid-row: 1 / -1;
+      }
+
+      /* 3-cover variant: top row spans both, bottom splits */
+      .pl-card-cover .mosaic.three img:first-child {
+        grid-column: 1 / -1;
+      }
+
+      .pl-card-cover .cover-single {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      /* Play button overlay */
+      .pl-card-play-overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0);
+        transition: background 0.2s;
+      }
+
+      .pl-card:hover .pl-card-play-overlay {
+        background: rgba(0, 0, 0, 0.35);
+      }
+
+      .pl-card-play-btn {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        background: var(--accent);
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transform: scale(0.8) translateY(6px);
+        transition:
+          opacity 0.2s,
+          transform 0.2s;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      }
+
+      .pl-card:hover .pl-card-play-btn {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+
+      .pl-card-play-btn svg {
+        width: 20px;
+        height: 20px;
+        fill: #fff;
+        margin-left: 2px;
+      }
+
+      /* Active/playing state */
+      .pl-card.is-active .pl-card-play-btn {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        background: var(--accent);
+      }
+
+      .pl-card.is-active {
+        border-color: var(--accent);
+      }
+
+      /* Card body */
+      .pl-card-body {
+        padding: 1rem 1.1rem 1.1rem;
+      }
+
+      .pl-card-title {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--text-1);
+        margin: 0 0 0.2rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .pl-card-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+      }
+
+      .pl-card-count {
+        font-size: 0.75rem;
+        color: var(--text-3);
+      }
+
+      .pl-card-duration {
+        font-size: 0.72rem;
+        color: var(--text-3);
+        opacity: 0.7;
+      }
+
+      /* ── Detail view (when a playlist is opened) ── */
+      .pl-detail {
+        display: none;
+        animation: fadeSlideUp 0.3s ease;
+      }
+
+      .pl-detail.open {
+        display: block;
+      }
+
+      @keyframes fadeSlideUp {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .pl-detail-header {
+        display: flex;
+        align-items: flex-end;
+        gap: 2rem;
+        margin-bottom: 2rem;
+        padding: 2rem;
+        background: var(--surface-1);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .pl-detail-bg {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        filter: blur(40px) saturate(1.3) brightness(0.2);
+        transform: scale(1.1);
+        z-index: 0;
+      }
+
+      .pl-detail-cover {
+        position: relative;
+        z-index: 1;
+        width: 160px;
+        height: 160px;
+        border-radius: 12px;
+        overflow: hidden;
+        flex-shrink: 0;
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+      }
+
+      .pl-detail-cover .mosaic,
+      .pl-detail-cover .cover-single {
+        width: 100%;
+        height: 100%;
+      }
+
+      .pl-detail-cover img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .pl-detail-info {
+        position: relative;
+        z-index: 1;
+        flex: 1;
+      }
+
+      .pl-detail-label {
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--text-3);
+        margin-bottom: 0.35rem;
+      }
+
+      .pl-detail-title {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: var(--text-1);
+        letter-spacing: -0.03em;
+        margin: 0 0 0.5rem;
+        line-height: 1.1;
+      }
+
+      .pl-detail-stats {
+        font-size: 0.82rem;
+        color: var(--text-3);
+        margin-bottom: 1.25rem;
+      }
+
+      .pl-detail-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .pl-play-all-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.85rem;
+        font-weight: 600;
+        padding: 0.65rem 1.4rem;
+        border-radius: 100px;
+        background: var(--accent);
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        transition:
+          opacity 0.15s,
+          transform 0.15s;
+      }
+
+      .pl-play-all-btn:hover {
+        opacity: 0.88;
+        transform: translateY(-1px);
+      }
+
+      .pl-play-all-btn svg {
+        width: 15px;
+        height: 15px;
+        fill: #fff;
+      }
+
+      .pl-shuffle-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.82rem;
+        font-weight: 500;
+        padding: 0.6rem 1.2rem;
+        border-radius: 100px;
+        background: transparent;
+        color: var(--text-2);
+        border: 1px solid var(--border);
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+
+      .pl-shuffle-btn:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+
+      .pl-shuffle-btn svg {
+        width: 14px;
+        height: 14px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .pl-back-detail-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.78rem;
+        color: var(--text-3);
+        background: none;
+        border: 1px solid var(--border);
+        border-radius: 100px;
+        padding: 0.4rem 0.9rem;
+        cursor: pointer;
+        transition: all 0.15s;
+        margin-bottom: 1.25rem;
+      }
+
+      .pl-back-detail-btn:hover {
+        color: var(--text-1);
+        border-color: var(--text-2);
+      }
+
+      .pl-back-detail-btn svg {
+        width: 13px;
+        height: 13px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2.2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      /* ── Track list inside detail ── */
+      .pl-track-list-header {
+        display: grid;
+        grid-template-columns: 2rem 1fr 120px 60px;
+        gap: 1rem;
+        padding: 0.5rem 1rem;
+        font-size: 0.68rem;
+        font-weight: 600;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        color: var(--text-3);
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 0.25rem;
+      }
+
+      .pl-track-row {
+        display: grid;
+        grid-template-columns: 2rem 1fr 120px 60px;
+        gap: 1rem;
+        align-items: center;
+        padding: 0.6rem 1rem;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background 0.15s;
+      }
+
+      .pl-track-row:hover {
+        background: var(--surface-2);
+      }
+
+      .pl-track-row.active {
+        background: color-mix(in srgb, var(--accent) 10%, transparent);
+      }
+
+      .pl-track-num {
+        font-size: 0.8rem;
+        color: var(--text-3);
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .pl-track-row.active .pl-track-num {
+        color: var(--accent);
+      }
+
+      .pl-track-row:hover .pl-track-num-val {
+        display: none;
+      }
+      .pl-track-row-play {
+        display: none;
+      }
+      .pl-track-row:hover .pl-track-row-play {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .pl-track-row-play svg {
+        width: 14px;
+        height: 14px;
+        fill: var(--text-1);
+      }
+
+      .pl-track-main {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        min-width: 0;
+      }
+
+      .pl-track-thumb {
+        width: 40px;
+        height: 40px;
+        border-radius: 6px;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+
+      .pl-track-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .pl-track-copy {
+        min-width: 0;
+      }
+
+      .pl-track-title {
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: var(--text-1);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+      }
+
+      .pl-track-row.active .pl-track-title {
+        color: var(--accent);
+      }
+
+      .pl-track-artist {
+        font-size: 0.75rem;
+        color: var(--text-3);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+      }
+
+      .pl-track-genre {
+        font-size: 0.72rem;
+        color: var(--text-3);
+      }
+
+      .pl-track-duration {
+        font-size: 0.78rem;
+        color: var(--text-3);
+        text-align: right;
+      }
+
+      /* ── Empty state ── */
+      .pl-empty {
+        text-align: center;
+        padding: 4rem 2rem;
+        color: var(--text-3);
+      }
+
+      .pl-empty svg {
+        width: 48px;
+        height: 48px;
+        opacity: 0.2;
+        margin-bottom: 1rem;
+      }
+
+      .pl-empty p {
+        font-size: 0.88rem;
+        opacity: 0.6;
+      }
+
+      /* ── New playlist modal ── */
+      .pl-modal-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 200;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(4px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s;
+      }
+
+      .pl-modal-backdrop.open {
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      .pl-modal {
+        background: var(--surface-1);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 2rem;
+        width: min(420px, 90vw);
+        transform: translateY(16px) scale(0.97);
+        transition: transform 0.2s;
+      }
+
+      .pl-modal-backdrop.open .pl-modal {
+        transform: translateY(0) scale(1);
+      }
+
+      .pl-modal h3 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--text-1);
+        margin: 0 0 0.25rem;
+      }
+
+      .pl-modal p {
+        font-size: 0.8rem;
+        color: var(--text-3);
+        margin: 0 0 1.5rem;
+      }
+
+      .pl-modal-field {
+        margin-bottom: 1rem;
+      }
+
+      .pl-modal-field label {
+        display: block;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        color: var(--text-3);
+        margin-bottom: 0.4rem;
+      }
+
+      .pl-modal-field input {
+        width: 100%;
+        padding: 0.65rem 0.9rem;
+        background: var(--surface-2);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        color: var(--text-1);
+        font-size: 0.88rem;
+        font-family: inherit;
+        box-sizing: border-box;
+        outline: none;
+        transition: border-color 0.15s;
+      }
+
+      .pl-modal-field input:focus {
+        border-color: var(--accent);
+      }
+
+      .pl-modal-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.6rem;
+        margin-top: 1.5rem;
+      }
+
+      .pl-modal-cancel {
+        padding: 0.55rem 1.1rem;
+        border-radius: 100px;
+        border: 1px solid var(--border);
+        background: transparent;
+        color: var(--text-2);
+        font-size: 0.82rem;
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+
+      .pl-modal-cancel:hover {
+        border-color: var(--text-2);
+        color: var(--text-1);
+      }
+
+      .pl-modal-create {
+        padding: 0.55rem 1.2rem;
+        border-radius: 100px;
+        border: none;
+        background: var(--accent);
+        color: #fff;
+        font-size: 0.82rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: opacity 0.15s;
+      }
+
+      .pl-modal-create:hover {
+        opacity: 0.85;
+      }
+
+      /* ── Responsive ── */
+      @media (max-width: 700px) {
+        .pl-shell {
+          padding: 1.5rem 1rem;
+        }
+        .pl-grid {
+          grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+          gap: 0.75rem;
+        }
+        .pl-detail-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 1rem;
+        }
+        .pl-detail-cover {
+          width: 120px;
+          height: 120px;
+        }
+        .pl-detail-title {
+          font-size: 1.5rem;
+        }
+        .pl-track-list-header,
+        .pl-track-row {
+          grid-template-columns: 2rem 1fr 60px;
+        }
+        .pl-track-list-header span:nth-child(3),
+        .pl-track-row .pl-track-genre {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <svg class="icon-sprite" aria-hidden="true" focusable="false">
+      <symbol id="icon-play" viewBox="0 0 24 24">
+        <path d="m8 5 11 7-11 7z" />
+      </symbol>
+      <symbol id="icon-pause" viewBox="0 0 24 24">
+        <path d="M8 5h3v14H8zm5 0h3v14h-3z" />
+      </symbol>
+      <symbol id="icon-prev" viewBox="0 0 24 24">
+        <path d="M6 5h2v14H6zm3.5 7 8.5-7v14z" />
+      </symbol>
+      <symbol id="icon-next" viewBox="0 0 24 24">
+        <path d="M16 5h2v14h-2zM6 19V5l8.5 7z" />
+      </symbol>
+      <symbol id="icon-shuffle" viewBox="0 0 24 24">
+        <path
+          d="M16 4h4v4m0 8v4h-4M4 7h3c2 0 3 .7 4.2 2.5l4.6 7C17 18.3 18 19 20 19M20 5c-2 0-3 .7-4.2 2.5l-1.1 1.6M4 17h3c2 0 3-.7 4.2-2.5l1.1-1.6"
+        />
+      </symbol>
+      <symbol id="icon-repeat" viewBox="0 0 24 24">
+        <path
+          d="M17 2l4 4-4 4V7H9a3 3 0 0 0-3 3v1M7 22l-4-4 4-4v3h8a3 3 0 0 0 3-3v-1"
+        />
+      </symbol>
+      <symbol id="icon-volume" viewBox="0 0 24 24">
+        <path
+          d="M5 14H2v-4h3l5-4v12zm9.5-6a4 4 0 0 1 0 8m2.5-11a8 8 0 0 1 0 14"
+        />
+      </symbol>
+      <symbol id="icon-plus" viewBox="0 0 24 24">
+        <path d="M12 5v14M5 12h14" />
+      </symbol>
+    </svg>
+
+    <!-- Topbar -->
+    <header class="global-topbar">
+      <div class="topbar-section topbar-left">
+        <a
+          href="index.html"
+          target="content"
+          style="
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.82rem;
+            color: var(--text-3);
+            text-decoration: none;
+            padding: 0.35rem 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            transition: all 0.15s;
+            margin-left: 0.5rem;
+          "
+          onmouseover="
+            this.style.color = 'var(--text-1)';
+            this.style.borderColor = 'var(--text-2)';
+          "
+          onmouseout="
+            this.style.color = 'var(--text-3)';
+            this.style.borderColor = 'var(--border)';
+          "
+        >
+          <svg
+            width="14"
+            height="14"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            viewBox="0 0 24 24"
+          >
+            <path d="m15 18-6-6 6-6" />
+          </svg>
+          Back
+        </a>
+      </div>
+      <a
+        class="topbar-logo"
+        href="index.html"
+        target="content"
+        aria-label="AStudios home"
+      >
+        <img
+          style="width: auto; height: 3rem"
+          src="images/logo.png"
+          alt="AStudios logo"
+        />
+      </a>
+      <div class="topbar-section topbar-right">
+        <span class="live-status"><span class="live-dot"></span>Live</span>
+      </div>
+    </header>
+
+    <div class="app-shell" style="display: block">
+      <div class="pl-shell">
+        <!-- ── GRID VIEW ── -->
+        <div id="plGridView">
+          <div class="pl-page-header">
+            <div>
+              <h1>Playlists</h1>
+              <p>Your collections, all in one place.</p>
+            </div>
+            <button class="pl-new-btn" id="newPlaylistBtn" type="button">
+              <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" /></svg>
+              New playlist
+            </button>
+          </div>
+          <div class="pl-grid" id="plGrid"></div>
+        </div>
+
+        <!-- ── DETAIL VIEW ── -->
+        <div class="pl-detail" id="plDetailView">
+          <button class="pl-back-detail-btn" id="plBackBtn" type="button">
+            <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6" /></svg>
+            All playlists
+          </button>
+
+          <div class="pl-detail-header">
+            <div class="pl-detail-bg" id="plDetailBg"></div>
+            <div class="pl-detail-cover" id="plDetailCover"></div>
+            <div class="pl-detail-info">
+              <div class="pl-detail-label">Playlist</div>
+              <h2 class="pl-detail-title" id="plDetailTitle">Playlist Name</h2>
+              <div class="pl-detail-stats" id="plDetailStats">
+                0 tracks · 0 min
+              </div>
+              <div class="pl-detail-actions">
+                <button class="pl-play-all-btn" id="plPlayAllBtn" type="button">
+                  <svg viewBox="0 0 24 24"><path d="m8 5 11 7-11 7z" /></svg>
+                  Play all
+                </button>
+                <button class="pl-shuffle-btn" id="plShuffleBtn" type="button">
+                  <svg viewBox="0 0 24 24">
+                    <path
+                      d="M16 4h4v4m0 8v4h-4M4 7h3c2 0 3 .7 4.2 2.5l4.6 7C17 18.3 18 19 20 19M20 5c-2 0-3 .7-4.2 2.5l-1.1 1.6M4 17h3c2 0 3-.7 4.2-2.5l1.1-1.6"
+                    />
+                  </svg>
+                  Shuffle
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="pl-track-list-header">
+            <span>#</span>
+            <span>Track</span>
+            <span>Genre</span>
+            <span style="text-align: right">Length</span>
+          </div>
+          <div id="plTrackList"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- New playlist modal -->
+    <div class="pl-modal-backdrop" id="plModal">
+      <div class="pl-modal">
+        <h3>New playlist</h3>
+        <p>Give your collection a name to get started.</p>
+        <div class="pl-modal-field">
+          <label for="plNameInput">Playlist name</label>
+          <input
+            id="plNameInput"
+            type="text"
+            placeholder="e.g. Late Night Drives"
+            maxlength="60"
+            autocomplete="off"
+          />
+        </div>
+        <div class="pl-modal-actions">
+          <button class="pl-modal-cancel" id="plModalCancel" type="button">
+            Cancel
+          </button>
+          <button class="pl-modal-create" id="plModalCreate" type="button">
+            Create
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Player bar -->
+    <footer class="player" id="player" aria-label="Music player">
+      <div class="player-track">
+        <a
+          href="now-playing.html"
+          target="content"
+          aria-label="Open Now Playing view"
+          style="display: contents; cursor: pointer"
+        >
+          <img
+            id="playerCover"
+            src="images/cover1.jpg"
+            alt="Current track cover art"
+            style="
+              transition:
+                opacity 0.15s,
+                transform 0.2s;
+            "
+            onmouseover="
+              this.style.opacity = '0.8';
+              this.style.transform = 'scale(1.05)';
+            "
+            onmouseout="
+              this.style.opacity = '1';
+              this.style.transform = 'scale(1)';
+            "
+          />
+        </a>
+        <div class="player-track-copy">
+          <strong id="playerTitle">Track 1</strong>
+          <span id="playerArtist">Nightwave</span>
+        </div>
+      </div>
+      <div class="player-controls">
+        <div class="transport-row">
+          <button
+            class="icon-button"
+            id="shuffleButton"
+            type="button"
+            aria-label="Shuffle"
+          >
+            <svg><use href="#icon-shuffle"></use></svg>
+          </button>
+          <button
+            class="icon-button"
+            id="prevButton"
+            type="button"
+            aria-label="Previous track"
+          >
+            <svg><use href="#icon-prev"></use></svg>
+          </button>
+          <button
+            class="play-toggle"
+            id="playPauseButton"
+            type="button"
+            aria-label="Play"
+          >
+            <svg class="icon-play"><use href="#icon-play"></use></svg>
+            <svg class="icon-pause"><use href="#icon-pause"></use></svg>
+            <span class="sr-only play-label">Play</span>
+          </button>
+          <button
+            class="icon-button"
+            id="nextButton"
+            type="button"
+            aria-label="Next track"
+          >
+            <svg><use href="#icon-next"></use></svg>
+          </button>
+          <button
+            class="icon-button"
+            id="repeatButton"
+            type="button"
+            aria-label="Repeat"
+          >
+            <svg><use href="#icon-repeat"></use></svg>
+          </button>
+        </div>
+        <div class="progress-row">
+          <div class="wave-visualizer" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span
+            ><span></span><span></span><span></span>
+          </div>
+          <input
+            id="progressBar"
+            step="0.001"
+            type="range"
+            min="0"
+            max="100"
+            value="0"
+            aria-label="Track progress"
+          />
+          <span class="time-left" id="timeLeft">-0:00</span>
+        </div>
+      </div>
+      <div class="player-volume">
+        <svg><use href="#icon-volume"></use></svg>
+        <input
+          id="volumeBar"
+          type="range"
+          min="0"
+          max="100"
+          value="80"
+          aria-label="Volume"
+        />
+      </div>
+    </footer>
+
+    <audio id="audioPlayer" preload="metadata"></audio>
+
+    <script src="script.js"></script>
+  </body>
+</html>

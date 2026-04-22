@@ -1,0 +1,1082 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tracks · AStudios</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* ── Tracks Page ── */
+      .tr-shell {
+        padding: 2.5rem 2.5rem 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      /* ── Page header ── */
+      .tr-page-header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        margin-bottom: 2rem;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .tr-page-header h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        color: var(--text-1);
+        margin: 0 0 0.25rem;
+        line-height: 1.1;
+      }
+
+      .tr-page-header p {
+        font-size: 0.85rem;
+        color: var(--text-3);
+        margin: 0;
+      }
+
+      /* ── Stats bar ── */
+      .tr-stats {
+        display: flex;
+        gap: 2rem;
+        padding: 1rem 1.25rem;
+        background: var(--surface-1);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        margin-bottom: 1.75rem;
+        flex-wrap: wrap;
+      }
+
+      .tr-stat {
+        display: flex;
+        flex-direction: column;
+        gap: 0.1rem;
+      }
+
+      .tr-stat span {
+        font-size: 0.65rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--text-3);
+      }
+
+      .tr-stat strong {
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--text-1);
+      }
+
+      /* ── Toolbar ── */
+      .tr-toolbar {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 1.25rem;
+        flex-wrap: wrap;
+      }
+
+      .tr-search-shell {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--surface-1);
+        border: 1px solid var(--border);
+        border-radius: 100px;
+        padding: 0.45rem 1rem;
+        flex: 1;
+        min-width: 180px;
+        max-width: 320px;
+        transition: border-color 0.15s;
+      }
+
+      .tr-search-shell:focus-within {
+        border-color: var(--accent);
+      }
+
+      .tr-search-shell svg {
+        width: 14px;
+        height: 14px;
+        fill: none;
+        stroke: var(--text-3);
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        flex-shrink: 0;
+      }
+
+      .tr-search-shell input {
+        background: none;
+        border: none;
+        outline: none;
+        font-size: 0.82rem;
+        color: var(--text-1);
+        width: 100%;
+        font-family: inherit;
+      }
+
+      .tr-search-shell input::placeholder {
+        color: var(--text-3);
+      }
+
+      .tr-filter-chips {
+        display: flex;
+        gap: 0.4rem;
+        flex-wrap: wrap;
+      }
+
+      .tr-chip {
+        font-size: 0.72rem;
+        font-weight: 500;
+        padding: 0.35rem 0.85rem;
+        border-radius: 100px;
+        border: 1px solid var(--border);
+        background: transparent;
+        color: var(--text-3);
+        cursor: pointer;
+        transition: all 0.15s;
+        white-space: nowrap;
+      }
+
+      .tr-chip:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .tr-chip.active {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+      }
+
+      .tr-sort-shell {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.78rem;
+        color: var(--text-3);
+        margin-left: auto;
+      }
+
+      .tr-sort-shell select {
+        background: var(--surface-1);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 0.35rem 0.65rem;
+        font-size: 0.78rem;
+        color: var(--text-1);
+        font-family: inherit;
+        cursor: pointer;
+        outline: none;
+      }
+
+      /* ── View toggle ── */
+      .tr-view-toggle {
+        display: flex;
+        gap: 0.25rem;
+        background: var(--surface-1);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 3px;
+      }
+
+      .tr-view-btn {
+        width: 30px;
+        height: 28px;
+        border: none;
+        background: none;
+        border-radius: 5px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-3);
+        transition: all 0.15s;
+      }
+
+      .tr-view-btn.active {
+        background: var(--accent);
+        color: #fff;
+      }
+
+      .tr-view-btn svg {
+        width: 14px;
+        height: 14px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      /* ── LIST VIEW ── */
+      .tr-list-header {
+        display: grid;
+        grid-template-columns: 2rem 1fr 130px 80px 60px 80px;
+        gap: 1rem;
+        padding: 0.5rem 1rem;
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--text-3);
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 0.25rem;
+        user-select: none;
+      }
+
+      .tr-list-header span {
+        cursor: pointer;
+        transition: color 0.15s;
+      }
+      .tr-list-header span:hover {
+        color: var(--text-1);
+      }
+      .tr-list-header span.sort-active {
+        color: var(--accent);
+      }
+
+      .tr-row {
+        display: grid;
+        grid-template-columns: 2rem 1fr 130px 80px 60px 80px;
+        gap: 1rem;
+        align-items: center;
+        padding: 0.55rem 1rem;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background 0.15s;
+        position: relative;
+      }
+
+      .tr-row:hover {
+        background: var(--surface-2);
+      }
+
+      .tr-row.active {
+        background: color-mix(in srgb, var(--accent) 10%, transparent);
+      }
+
+      /* Number / play icon cell */
+      .tr-row-num {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.78rem;
+        color: var(--text-3);
+      }
+
+      .tr-row.active .tr-row-num {
+        color: var(--accent);
+      }
+
+      .tr-num-val {
+        display: block;
+      }
+      .tr-row-play-icon {
+        display: none;
+      }
+      .tr-row:hover .tr-num-val {
+        display: none;
+      }
+      .tr-row:hover .tr-row-play-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .tr-row-play-icon svg {
+        width: 13px;
+        height: 13px;
+        fill: var(--text-1);
+      }
+
+      /* Track main cell */
+      .tr-row-main {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        min-width: 0;
+      }
+
+      .tr-thumb {
+        width: 42px;
+        height: 42px;
+        border-radius: 7px;
+        overflow: hidden;
+        flex-shrink: 0;
+        position: relative;
+      }
+
+      .tr-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .tr-thumb-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.15s;
+      }
+
+      .tr-row:hover .tr-thumb-overlay {
+        opacity: 1;
+      }
+
+      .tr-thumb-overlay svg {
+        width: 14px;
+        height: 14px;
+        fill: #fff;
+      }
+
+      .tr-copy {
+        min-width: 0;
+      }
+
+      .tr-title {
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: var(--text-1);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+      }
+
+      .tr-row.active .tr-title {
+        color: var(--accent);
+      }
+
+      .tr-artist {
+        font-size: 0.74rem;
+        color: var(--text-3);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+      }
+
+      .tr-genre-tag {
+        display: inline-block;
+        font-size: 0.68rem;
+        font-weight: 600;
+        padding: 0.2rem 0.6rem;
+        border-radius: 100px;
+        background: var(--surface-2);
+        border: 1px solid var(--border);
+        color: var(--text-3);
+        white-space: nowrap;
+      }
+
+      .tr-release {
+        font-size: 0.78rem;
+        color: var(--text-3);
+      }
+      .tr-duration {
+        font-size: 0.78rem;
+        color: var(--text-3);
+        text-align: right;
+      }
+
+      /* Row actions */
+      .tr-row-actions {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 0.2rem;
+        opacity: 0;
+        transition: opacity 0.15s;
+      }
+
+      .tr-row:hover .tr-row-actions {
+        opacity: 1;
+      }
+
+      .tr-action-btn {
+        width: 28px;
+        height: 28px;
+        border: none;
+        background: none;
+        border-radius: 6px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-3);
+        transition: all 0.15s;
+      }
+
+      .tr-action-btn:hover {
+        background: var(--surface-1);
+        color: var(--accent);
+      }
+
+      .tr-action-btn.liked {
+        color: var(--accent);
+        opacity: 1;
+      }
+
+      .tr-action-btn svg {
+        width: 13px;
+        height: 13px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .tr-action-btn.liked svg {
+        fill: var(--accent);
+      }
+
+      /* ── GRID VIEW ── */
+      .tr-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+      }
+
+      .tr-card {
+        background: var(--surface-1);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        overflow: hidden;
+        cursor: pointer;
+        transition:
+          border-color 0.2s,
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+
+      .tr-card:hover {
+        border-color: var(--accent);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3);
+      }
+
+      .tr-card.active {
+        border-color: var(--accent);
+      }
+
+      .tr-card-cover {
+        position: relative;
+        aspect-ratio: 1;
+        overflow: hidden;
+      }
+
+      .tr-card-cover img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.3s;
+      }
+
+      .tr-card:hover .tr-card-cover img {
+        transform: scale(1.05);
+      }
+
+      .tr-card-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s;
+      }
+
+      .tr-card:hover .tr-card-overlay {
+        background: rgba(0, 0, 0, 0.35);
+      }
+
+      .tr-card-play {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: var(--accent);
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transform: scale(0.8) translateY(6px);
+        transition:
+          opacity 0.2s,
+          transform 0.2s;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      }
+
+      .tr-card:hover .tr-card-play,
+      .tr-card.active .tr-card-play {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+
+      .tr-card-play svg {
+        width: 18px;
+        height: 18px;
+        fill: #fff;
+        margin-left: 2px;
+      }
+
+      .tr-card-body {
+        padding: 0.85rem 1rem 1rem;
+      }
+
+      .tr-card-title {
+        font-size: 0.88rem;
+        font-weight: 700;
+        color: var(--text-1);
+        margin: 0 0 0.15rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .tr-card.active .tr-card-title {
+        color: var(--accent);
+      }
+
+      .tr-card-artist {
+        font-size: 0.74rem;
+        color: var(--text-3);
+        margin: 0 0 0.5rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .tr-card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .tr-card-genre {
+        font-size: 0.65rem;
+        font-weight: 600;
+        padding: 0.18rem 0.55rem;
+        border-radius: 100px;
+        background: var(--surface-2);
+        border: 1px solid var(--border);
+        color: var(--text-3);
+      }
+
+      .tr-card-dur {
+        font-size: 0.72rem;
+        color: var(--text-3);
+      }
+
+      /* ── Now playing bar inside page ── */
+      .tr-now-playing-bar {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.85rem 1.25rem;
+        background: color-mix(in srgb, var(--accent) 12%, var(--surface-1));
+        border: 1px solid var(--accent);
+        border-radius: 12px;
+        margin-bottom: 1.5rem;
+        animation: fadeSlideDown 0.3s ease;
+      }
+
+      @keyframes fadeSlideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .tr-now-playing-bar img {
+        width: 40px;
+        height: 40px;
+        border-radius: 6px;
+        object-fit: cover;
+        flex-shrink: 0;
+      }
+
+      .tr-now-playing-copy {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .tr-now-playing-copy strong {
+        font-size: 0.88rem;
+        font-weight: 700;
+        color: var(--accent);
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .tr-now-playing-copy span {
+        font-size: 0.74rem;
+        color: var(--text-3);
+      }
+
+      .tr-now-playing-badge {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.68rem;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+
+      .tr-now-playing-badge .wave-mini {
+        display: flex;
+        gap: 2px;
+        align-items: flex-end;
+        height: 14px;
+      }
+
+      .tr-now-playing-badge .wave-mini span {
+        width: 3px;
+        background: var(--accent);
+        border-radius: 2px;
+        animation: waveBar 0.8s ease-in-out infinite alternate;
+      }
+
+      .tr-now-playing-badge .wave-mini span:nth-child(1) {
+        height: 6px;
+        animation-delay: 0s;
+      }
+      .tr-now-playing-badge .wave-mini span:nth-child(2) {
+        height: 12px;
+        animation-delay: 0.15s;
+      }
+      .tr-now-playing-badge .wave-mini span:nth-child(3) {
+        height: 8px;
+        animation-delay: 0.3s;
+      }
+      .tr-now-playing-badge .wave-mini span:nth-child(4) {
+        height: 14px;
+        animation-delay: 0.1s;
+      }
+
+      @keyframes waveBar {
+        from {
+          transform: scaleY(0.4);
+        }
+        to {
+          transform: scaleY(1);
+        }
+      }
+
+      body.reduced-wave .tr-now-playing-badge .wave-mini span {
+        animation: none;
+      }
+
+      /* ── Empty state ── */
+      .tr-empty {
+        text-align: center;
+        padding: 4rem 2rem;
+        color: var(--text-3);
+      }
+
+      .tr-empty svg {
+        width: 48px;
+        height: 48px;
+        opacity: 0.2;
+        margin-bottom: 1rem;
+      }
+
+      .tr-empty p {
+        font-size: 0.88rem;
+        opacity: 0.6;
+      }
+
+      /* ── Responsive ── */
+      @media (max-width: 860px) {
+        .tr-shell {
+          padding: 1.5rem 1rem;
+        }
+        .tr-list-header,
+        .tr-row {
+          grid-template-columns: 2rem 1fr 80px 60px;
+        }
+        .tr-list-header span:nth-child(3),
+        .tr-list-header span:nth-child(5),
+        .tr-row .tr-genre-tag,
+        .tr-row .tr-release {
+          display: none;
+        }
+        .tr-row-actions {
+          display: none;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .tr-list-header,
+        .tr-row {
+          grid-template-columns: 2rem 1fr 60px;
+        }
+        .tr-list-header span:nth-child(4),
+        .tr-row .tr-release {
+          display: none;
+        }
+        .tr-stats {
+          gap: 1rem;
+        }
+        .tr-grid {
+          grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <svg class="icon-sprite" aria-hidden="true" focusable="false">
+      <symbol id="icon-play" viewBox="0 0 24 24">
+        <path d="m8 5 11 7-11 7z" />
+      </symbol>
+      <symbol id="icon-pause" viewBox="0 0 24 24">
+        <path d="M8 5h3v14H8zm5 0h3v14h-3z" />
+      </symbol>
+      <symbol id="icon-prev" viewBox="0 0 24 24">
+        <path d="M6 5h2v14H6zm3.5 7 8.5-7v14z" />
+      </symbol>
+      <symbol id="icon-next" viewBox="0 0 24 24">
+        <path d="M16 5h2v14h-2zM6 19V5l8.5 7z" />
+      </symbol>
+      <symbol id="icon-shuffle" viewBox="0 0 24 24">
+        <path
+          d="M16 4h4v4m0 8v4h-4M4 7h3c2 0 3 .7 4.2 2.5l4.6 7C17 18.3 18 19 20 19M20 5c-2 0-3 .7-4.2 2.5l-1.1 1.6M4 17h3c2 0 3-.7 4.2-2.5l1.1-1.6"
+        />
+      </symbol>
+      <symbol id="icon-repeat" viewBox="0 0 24 24">
+        <path
+          d="M17 2l4 4-4 4V7H9a3 3 0 0 0-3 3v1M7 22l-4-4 4-4v3h8a3 3 0 0 0 3-3v-1"
+        />
+      </symbol>
+      <symbol id="icon-volume" viewBox="0 0 24 24">
+        <path
+          d="M5 14H2v-4h3l5-4v12zm9.5-6a4 4 0 0 1 0 8m2.5-11a8 8 0 0 1 0 14"
+        />
+      </symbol>
+      <symbol id="icon-search" viewBox="0 0 24 24">
+        <path d="m21 21-4.35-4.35m1.85-5.15a7 7 0 1 1-14 0 7 7 0 0 1 14 0" />
+      </symbol>
+      <symbol id="icon-heart" viewBox="0 0 24 24">
+        <path
+          d="M12 21s-7-4.6-9.3-8.4A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.3 6.6C19 16.4 12 21 12 21"
+        />
+      </symbol>
+      <symbol id="icon-queue" viewBox="0 0 24 24">
+        <path d="M4 6h10M4 12h10M4 18h10M18 5v14l3-2.2" />
+      </symbol>
+      <symbol id="icon-dots" viewBox="0 0 24 24">
+        <circle cx="5" cy="12" r="1.5" />
+        <circle cx="12" cy="12" r="1.5" />
+        <circle cx="19" cy="12" r="1.5" />
+      </symbol>
+      <symbol id="icon-list" viewBox="0 0 24 24">
+        <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" />
+      </symbol>
+      <symbol id="icon-grid" viewBox="0 0 24 24">
+        <rect x="3" y="3" width="7" height="7" />
+        <rect x="14" y="3" width="7" height="7" />
+        <rect x="3" y="14" width="7" height="7" />
+        <rect x="14" y="14" width="7" height="7" />
+      </symbol>
+    </svg>
+
+    <!-- Topbar -->
+    <header class="global-topbar">
+      <div class="topbar-section topbar-left">
+        <a
+          href="index.html"
+          style="
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.82rem;
+            color: var(--text-3);
+            text-decoration: none;
+            padding: 0.35rem 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            transition: all 0.15s;
+            margin-left: 0.5rem;
+          "
+          onmouseover="
+            this.style.color = 'var(--text-1)';
+            this.style.borderColor = 'var(--text-2)';
+          "
+          onmouseout="
+            this.style.color = 'var(--text-3)';
+            this.style.borderColor = 'var(--border)';
+          "
+        >
+          <svg
+            width="14"
+            height="14"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            viewBox="0 0 24 24"
+          >
+            <path d="m15 18-6-6 6-6" />
+          </svg>
+          Back
+        </a>
+      </div>
+      <a class="topbar-logo" href="index.html" aria-label="AStudios home">
+        <img
+          style="width: auto; height: 3rem"
+          src="images/logo.png"
+          alt="AStudios logo"
+        />
+      </a>
+      <div class="topbar-section topbar-right">
+        <span class="live-status"><span class="live-dot"></span>Live</span>
+      </div>
+    </header>
+
+    <div class="app-shell" style="display: block">
+      <div class="tr-shell">
+        <!-- Page header -->
+        <div class="tr-page-header">
+          <div>
+            <h1>Tracks</h1>
+            <p>Your full library — filter, sort, and play anything.</p>
+          </div>
+        </div>
+
+        <!-- Stats bar -->
+        <div class="tr-stats" id="trStats"></div>
+
+        <!-- Now playing bar (shown when something is playing) -->
+        <div
+          class="tr-now-playing-bar"
+          id="trNowPlayingBar"
+          style="display: none"
+        >
+          <img id="trNpCover" src="" alt="Now playing cover" />
+          <div class="tr-now-playing-copy">
+            <strong id="trNpTitle">—</strong>
+            <span id="trNpArtist">—</span>
+          </div>
+          <div class="tr-now-playing-badge">
+            <div class="wave-mini">
+              <span></span><span></span><span></span><span></span>
+            </div>
+            Now Playing
+          </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="tr-toolbar">
+          <label class="tr-search-shell" aria-label="Search tracks">
+            <svg viewBox="0 0 24 24"><use href="#icon-search" /></svg>
+            <input
+              id="trSearch"
+              type="search"
+              placeholder="Search tracks, artists, genres…"
+            />
+          </label>
+
+          <div class="tr-filter-chips" id="trFilterChips">
+            <button class="tr-chip active" type="button" data-filter="all">
+              All
+            </button>
+            <button class="tr-chip" type="button" data-filter="J-Pop Trap">
+              J-Pop Trap
+            </button>
+            <button class="tr-chip" type="button" data-filter="J-Pop Ballad">
+              J-Pop Ballad
+            </button>
+            <button class="tr-chip" type="button" data-filter="J-Pop Swing">
+              J-Pop Swing
+            </button>
+          </div>
+
+          <label class="tr-sort-shell">
+            <span>Sort</span>
+            <select id="trSort">
+              <option value="default">Recently added</option>
+              <option value="title">Title A–Z</option>
+              <option value="artist">Artist</option>
+              <option value="duration">Duration</option>
+              <option value="release">Release year</option>
+            </select>
+          </label>
+
+          <div class="tr-view-toggle">
+            <button
+              class="tr-view-btn active"
+              id="viewListBtn"
+              type="button"
+              aria-label="List view"
+            >
+              <svg viewBox="0 0 24 24"><use href="#icon-list" /></svg>
+            </button>
+            <button
+              class="tr-view-btn"
+              id="viewGridBtn"
+              type="button"
+              aria-label="Grid view"
+            >
+              <svg viewBox="0 0 24 24"><use href="#icon-grid" /></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- List view -->
+        <div id="trListView">
+          <div class="tr-list-header">
+            <span>#</span>
+            <span data-sort-col="title">Title</span>
+            <span data-sort-col="genre">Genre</span>
+            <span data-sort-col="release">Year</span>
+            <span data-sort-col="duration" style="text-align: right"
+              >Length</span
+            >
+            <span></span>
+          </div>
+          <div id="trList"></div>
+        </div>
+
+        <!-- Grid view -->
+        <div id="trGridView" style="display: none">
+          <div class="tr-grid" id="trGrid"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Player bar -->
+    <footer class="player" id="player" aria-label="Music player">
+      <div class="player-track">
+        <a
+          href="now-playing.html"
+          aria-label="Open Now Playing"
+          style="display: contents; cursor: pointer"
+        >
+          <img
+            id="playerCover"
+            src="images/cover1.jpg"
+            alt="Current track cover art"
+            style="
+              transition:
+                opacity 0.15s,
+                transform 0.2s;
+            "
+            onmouseover="
+              this.style.opacity = '0.8';
+              this.style.transform = 'scale(1.05)';
+            "
+            onmouseout="
+              this.style.opacity = '1';
+              this.style.transform = 'scale(1)';
+            "
+          />
+        </a>
+        <div class="player-track-copy">
+          <strong id="playerTitle">Track 1</strong>
+          <span id="playerArtist">Nightwave</span>
+        </div>
+      </div>
+      <div class="player-controls">
+        <div class="transport-row">
+          <button
+            class="icon-button"
+            id="shuffleButton"
+            type="button"
+            aria-label="Shuffle"
+          >
+            <svg><use href="#icon-shuffle"></use></svg>
+          </button>
+          <button
+            class="icon-button"
+            id="prevButton"
+            type="button"
+            aria-label="Previous track"
+          >
+            <svg><use href="#icon-prev"></use></svg>
+          </button>
+          <button
+            class="play-toggle"
+            id="playPauseButton"
+            type="button"
+            aria-label="Play"
+          >
+            <svg class="icon-play"><use href="#icon-play"></use></svg>
+            <svg class="icon-pause"><use href="#icon-pause"></use></svg>
+            <span class="sr-only play-label">Play</span>
+          </button>
+          <button
+            class="icon-button"
+            id="nextButton"
+            type="button"
+            aria-label="Next track"
+          >
+            <svg><use href="#icon-next"></use></svg>
+          </button>
+          <button
+            class="icon-button"
+            id="repeatButton"
+            type="button"
+            aria-label="Repeat"
+          >
+            <svg><use href="#icon-repeat"></use></svg>
+          </button>
+        </div>
+        <div class="progress-row">
+          <div class="wave-visualizer" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span
+            ><span></span><span></span><span></span>
+          </div>
+          <input
+            id="progressBar"
+            step="0.001"
+            type="range"
+            min="0"
+            max="100"
+            value="0"
+            aria-label="Track progress"
+          />
+          <span class="time-left" id="timeLeft">-0:00</span>
+        </div>
+      </div>
+      <div class="player-volume">
+        <svg><use href="#icon-volume"></use></svg>
+        <input
+          id="volumeBar"
+          type="range"
+          min="0"
+          max="100"
+          value="80"
+          aria-label="Volume"
+        />
+      </div>
+    </footer>
+
+    <audio id="audioPlayer" preload="metadata"></audio>
+
+    <script src="script.js"></script>
+  </body>
+</html>
