@@ -232,7 +232,7 @@ Bloom with me.`,
     genre: "J-Pop Swing",
     file: "music/ShuttleAndHoop.mp3",
     cover: "images/SaH.png",
-    artist: "Nightwave",
+    artist: "AStudios",
     durationLabel: "5:54",
     release: "2026",
     addedOrder: 3,
@@ -314,14 +314,128 @@ in the same long line.
 00:05:38,440 --> 00:05:53,240 [Music]
 [outro music]`,
   },
+{
+    title: "Third Quince",
+    genre: "J-Pop Ballad",
+    file: "music/ThirdQuince.mp3",
+    cover: "images/TQ.png",
+    artist: "AStudios",
+    durationLabel: "5:51",
+    release: "2026",
+    addedOrder: 4,
+    lyricsData: `00:00:00,580 --> 00:00:11,080 [Music]
+[Intro Music] 
+
+00:00:13,180 --> 00:00:14,920 [Female]
+You were the first 
+
+00:00:16,320 --> 00:00:18,060 [Female]
+to say my name. 
+
+00:00:19,740 --> 00:00:25,010 [Female]
+Soft as snow, but it still burned the same. 
+
+00:00:26,580 --> 00:00:56,620 [Male]
+Ishika smiled too smooth, changed the truth in her mouth. A sweet little lie with the backdoor left out. Nino slammed every door, then she turned, then she cared. Love that bites first still wants someone there. Itsuki stayed far away with her pride and a wall. Yotsuba gave every last piece and said nothing at all. Me, I stayed in one place, same hand, same ache, same light. I loved him out loud and I loved him right. 
+
+00:00:56,620 --> 00:00:58,060 [Female]
+I was there first. 
+
+00:00:59,460 --> 00:01:01,780 [Female]
+I stayed the same 
+
+00:01:02,960 --> 00:01:11,720 [Female]
+while they all moved, and I kept his name. Miku, don’t fade out. 
+
+00:01:12,780 --> 00:01:15,180 [Female]
+Miku, don’t fade out. 
+
+00:01:16,340 --> 00:01:31,360 [Female]
+I loved him first, and I loved him loud. I gave him my heart, he let it drop down. Miku, don’t fade out. Don’t fade out now. 
+
+00:01:31,360 --> 00:01:33,580 [Male]
+I watched you all change. 
+
+00:01:34,720 --> 00:01:43,540 [Male]
+I watched him look away. I said it with my whole chest, still lost him anyway. 
+
+00:01:44,800 --> 00:01:48,200 [Male]
+Miku, don’t fade out. 
+
+00:01:52,740 --> 00:01:55,200 [Male]
+Miku, don’t fade out. 
+
+00:01:56,780 --> 00:02:23,740 [Male]
+I begged the words I couldn’t say in a room full of steam. Every small brave step was a fire in me. I learned his world one page, one word, one glance. While the rest were dreams, I was the one who would stand. But love ain’t fair, and it doesn’t keep score. You can give all you are and still want more. So I bit back tears and I stayed in the frame. The first one to open up, the last one he named. 
+
+00:02:23,740 --> 00:02:41,920 [Female]
+I was there first. I stayed the same while they all moved, and I kept his name. Miku, don’t fade out. Miku, don’t fade out. 
+
+00:02:42,980 --> 00:02:56,900 [Female]
+I loved him first, and I loved him loud. I gave him my heart, he let it drop down. Miku, don’t fade out. Don’t fade out now. 
+
+00:02:57,980 --> 00:03:00,220 [Male]
+I watched you all change. 
+
+00:03:01,360 --> 00:03:10,320 [Male]
+I watched him look away. I said it with my whole chest, still lost him anyway. 
+
+00:03:11,500 --> 00:03:12,140 [Male]
+Miku, 
+
+00:03:13,220 --> 00:03:22,480 [Male]
+don’t fade out. Miku, don’t fade out. 
+
+00:03:36,540 --> 00:03:37,860 [Female]
+Look at the screen, 
+
+00:03:39,400 --> 00:03:40,940 [Female]
+say it back to me. 
+
+00:03:42,820 --> 00:03:48,340 [Female]
+I was never a maybe, I was always real, you see. 
+
+00:03:49,640 --> 00:03:51,600 [Male]
+I didn’t play games, 
+
+00:03:52,700 --> 00:03:54,680 [Male]
+I didn’t hide in the dark. 
+
+00:03:56,340 --> 00:04:01,200 [Male]
+I walked in first with my whole shaking heart. 
+
+00:04:02,960 --> 00:04:04,420 [Male]
+And yeah, it hurts 
+
+00:04:05,500 --> 00:04:18,160 [Male]
+that honesty bled. But I’d rather be true than be the one he forgets. So if I lose here, let the record stay. I loved him first, I loved him all the way. 
+
+00:04:29,420 --> 00:04:51,340 [Female]
+Miku, don’t fade out. Miku, don’t fade out. I loved him first, and I loved him loud. I gave him my heart, he let it drop down. Miku, don’t fade out. Don’t fade out now. 
+
+00:04:51,340 --> 00:05:03,580 [Male]
+I watched you all change. I watched him look away. I said it with my whole chest, still lost him anyway. 
+
+00:05:04,840 --> 00:05:09,900 [Male]
+Miku, don’t fade out. 
+
+00:05:12,560 --> 00:05:22,680 [Male]
+Miku, don’t fade out. Miku, don’t fade out. 
+
+00:05:26,060 --> 00:05:29,200 [Male]
+Miku, don’t fade out now. 
+
+00:05:31,159 --> 00:05:49,480 [Music]
+[outro music]`,
+  },
 ];
 
-let playlists = [{ title: "Anime", songIndices: [0, 1, 2] }];
+let playlists = [{ title: "Anime", songIndices: [0, 1, 2, 3] }];
 
 const discoverItems = [
-  { title: "Waifus", genre: "J-Pop Trap", cover: "images/Waifus.png" },
   { title: "PaperFlowerGate", genre: "J-Pop Ballad", cover: "images/PFG.png" },
   { title: "ShuttleAndHoop", genre: "J-Pop Swing", cover: "images/SaH.png" },
+  { title: "ThirdQuince", genre: "J-Pop Ballad", cover: "images/TQ.png" },
 ];
 
 const notifications = [
