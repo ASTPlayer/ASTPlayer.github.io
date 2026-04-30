@@ -430,7 +430,7 @@ Miku, don’t fade out now.
   },
   {
     title: "You See Me",
-    genre: "J-Pop Ballad",
+    genre: "Jap-Eng Trap Rap",
     file: "music/YouSeeMe.mp3",
     cover: "images/YSM.png",
     artist: "AStudios",
@@ -572,7 +572,7 @@ And it’s true
   },
   {
     title: "2Dの世界へ",
-    genre: "J-Pop Ballad",
+    genre: "Jap-Eng Trap Rap",
     file: "music/2DnoSekaihe.mp3",
     cover: "images/2D.png",
     artist: "AStudios",
