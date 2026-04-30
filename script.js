@@ -314,7 +314,7 @@ in the same long line.
 00:05:38,440 --> 00:05:53,240 [Music]
 [outro music]`,
   },
-{
+  {
     title: "Third Quince",
     genre: "J-Pop Ballad",
     file: "music/ThirdQuince.mp3",
@@ -427,6 +427,326 @@ Miku, don’t fade out now.
 
 00:05:31,159 --> 00:05:49,480 [Music]
 [outro music]`,
+  },
+  {
+    title: "You See Me",
+    genre: "J-Pop Ballad",
+    file: "music/YouSeeMe.mp3",
+    cover: "images/YSM.png",
+    artist: "AStudios",
+    durationLabel: "3:41",
+    release: "2026",
+    addedOrder: 5,
+    lyricsData: ` 00:00:00,200 --> 00:00:21,660 [Male]
+I came in locked up tight
+Face on, game on, cold enough
+Everybody wants a mask
+So I made mine fit like gloves. 
+
+00:00:21,660 --> 00:00:28,540 [Male]
+School hall, locked jaw, same old scene
+Pocket full of words I never spend
+You looked through me like glass
+Then you smiled and I almost bent. 
+
+00:00:28,540 --> 00:00:35,340 [Male]
+No big talk, no fake cool
+Just that look like, “I know you”
+気づかれたくない
+でも君だけは true. 
+
+00:00:35,340 --> 00:00:42,420 [Male]
+Walls go up, walls go down
+When you say my name like that
+숨겨 둔 마음까지
+Break apart, then come right back. 
+
+00:00:42,420 --> 00:00:50,120 [Male]
+One step close, no crowd around
+Suddenly it’s safe somehow
+本当の顔で
+I can breathe right now. 
+
+00:00:50,120 --> 00:01:04,040 [Male]
+You see me, I see you
+初めての feeling
+You see me, I see you
+心がもう free-ing. 
+
+00:01:04,040 --> 00:01:17,160 [Male]
+No more armor, no more fear
+君の前で only me
+You see me, I see you
+That’s where I wanna be (yeah, yeah).
+
+00:01:18,420 --> 00:01:25,240 [Male]
+I used to talk in half-truths
+Keep my real laugh in a drawer
+Act like I don’t need nobody
+Then you came and kicked that door. 
+
+00:01:25,240 --> 00:01:32,100 [Male]
+Now I’m honest in small ways
+Messy hair, tired eyes, real grin
+You don’t need the polished version
+You like the crack, you like the skin. 
+
+00:01:32,100 --> 00:01:38,880 [Male]
+周りには見せない
+この弱さも shine
+If they knew what you knew
+They’d know I’m doing fine. 
+
+00:01:38,880 --> 00:01:45,940 [Male]
+You don’t flinch, you don’t run
+When the night gets loud inside
+You just pull me back to earth
+Like, “Relax, you’re alive.”
+
+00:01:45,940 --> 00:01:53,020 [Male]
+Walls go up, walls go down
+When you say my name like that
+숨겨 둔 마음까지
+Break apart, then come right back. 
+
+00:01:53,020 --> 00:02:00,720 [Male]
+One step close, no crowd around
+Suddenly it’s safe somehow
+本当の顔で
+I can breathe right now. 
+
+00:02:00,720 --> 00:02:14,600 [Male]
+You see me, I see you
+初めての feeling
+You see me, I see you
+心がもう free-ing. 
+
+00:02:14,600 --> 00:02:28,079 [Male]
+No more armor, no more fear
+君の前で only me
+You see me, I see you
+That’s where I wanna be (yeah, yeah). 
+
+00:02:28,080 --> 00:02:35,420 [Male]
+Hands up now, let it break
+All that pride, let it shake
+If they want the fake me, let them wait
+I got the real one right here today. 
+
+00:02:35,420 --> 00:02:42,399 [Male]
+ねえ、こんなに自然で
+Crazy how it feels
+Two lost kids turned one light
+Now we turn the room real bright. 
+
+00:02:42,400 --> 00:02:50,140 [Male]
+Move closer, don’t blink
+This is more than a spark
+Everybody else can watch
+We already found the heart. 
+
+00:02:50,140 --> 00:02:50,200 [Male]
+You see me, I see you
+初めての feeling
+You see me, I see you
+心がもう free-ing. 
+
+00:03:04,040 --> 00:03:17,700 [Male]
+No more armor, no more fear
+君の前で only me
+You see me, I see you
+That’s where I wanna be (yeah, yeah). 
+
+00:03:17,700 --> 00:03:25,440 [Male]
+Quiet now, but it’s loud in my chest
+君となら I’m blessed
+No disguise, no test
+Just you and me, I guess. 
+
+00:03:25,440 --> 00:03:41,400 [Male]
+You see me
+I see you
+初めての feeling
+And it’s true
+    `,
+  },
+  {
+    title: "2Dの世界へ",
+    genre: "J-Pop Ballad",
+    file: "music/2DnoSekaihe.mp3",
+    cover: "images/2D.png",
+    artist: "AStudios",
+    durationLabel: "4:00",
+    release: "2026",
+    addedOrder: 6,
+    lyricsData: ` 00:00:07,560 --> 00:00:13,030 [Male]
+朝のアスファルト
+でも頭は別の world
+教室の窓の外
+I’m already gone, I’m in the swirl
+
+00:00:13,030 --> 00:00:22,380 [Male]
+財布は薄い
+夢はでかい, that’s the code
+誰にも見えない扉
+俺だけが知ってるロード
+
+00:00:22,380 --> 00:00:29,540 [Male]
+息を止めて jump in
+ネクタイほどいて run
+現実は重いけど
+画面の向こうで I'm the one
+
+00:00:29,540 --> 00:00:37,020 [Male]
+目が合った瞬間
+2Dの girl, she smiles at me
+綺麗すぎる世界
+それだけで救われる feelin’ free
+
+00:00:37,020 --> 00:00:44,300 [Male]
+もう少し, hold on
+心が浮かぶ方へ
+痛みもノイズも
+遠くへ, far away
+
+00:00:44,300 --> 00:00:51,560 [Male]
+ほら, hear that? 心拍が上がる
+一歩で変わる tonight
+I’m not lost, I’m alive
+この瞬間で飛べる vibe
+
+00:00:51,560 --> 00:00:59,280 [Male]
+2Dの世界へ
+Take me there, take me there
+2Dの世界へ
+I can breathe, I can care
+
+00:00:59,280 --> 00:01:06,540 [Male]
+higher now
+Bass falls, then I rise
+2Dの世界へ
+ここが俺の sky
+
+00:01:06,540 --> 00:01:13,960 [Male]
+2Dの世界へ
+Take me there, take me there
+2Dの世界へ
+I can breathe, I can care
+
+00:01:13,960 --> 00:01:21,100 [Male]
+ポケットの中の pain
+Still I move like I’m blessed
+昨日のミスも傷も
+今日の俺には just a test
+
+00:01:21,100 --> 00:01:28,060 [Male]
+踏まれたプライド
+でも折れてない spine
+夜のコンビニ前
+また描く new design
+
+00:01:28,060 --> 00:01:36,339 [Male]
+「無理だ」って言葉
+聞き飽きたよ, no more
+俺は俺の速度で
+開けるんだ next door
+
+00:01:36,340 --> 00:01:42,520 [Male]
+アニメの街角
+雨が光って見える
+あの子の小さな笑顔で
+世界は少し救われる
+
+00:01:43,720 --> 00:01:50,880 [Male]
+現実が嫌いじゃない
+ただ少し疲れたんだ
+でもあの色の向こう
+まだ行ける,まだ飛べるんだ
+
+00:01:50,880 --> 00:01:58,240 [Male]
+もう少し, hold on
+心が浮かぶ方へ
+痛みもノイズも
+遠くへ, far away
+
+00:01:58,240 --> 00:02:05,170 [Male]
+ほら, hear that? 心拍が上がる
+一歩で変わる tonight
+I’m not lost, I’m alive
+この瞬間で飛べる vibe
+
+00:02:05,170 --> 00:02:13,260 [Male]
+2Dの世界へ
+Take me there, take me there
+2Dの世界へ
+I can breathe, I can care
+
+00:02:13,260 --> 00:02:20,180 [Male]
+高く跳べ, higher now
+Bass falls, then I rise
+2Dの世界へ
+ここが俺の sky
+
+00:02:20,180 --> 00:02:27,780 [Male]
+2Dの世界へ
+Take me there, take me there
+2Dの世界へ
+I can breathe, I can care
+
+00:02:27,780 --> 00:02:34,960 [Male]
+目を閉じる
+見える未来
+泣きそうでも
+まだ行ける right?
+
+00:02:34,960 --> 00:02:42,560 [Male]
+I was built for the fall
+でも立ち上がる every time
+二次元の光が
+この胸に fireline
+
+00:02:42,560 --> 00:02:49,920 [Male]
+Listen to my heart, no fear
+今日の俺は stronger
+ひとりじゃない気がする
+その瞬間, I'm a runner
+
+00:02:51,740 --> 00:02:57,320 [Male]
+Bass drop!
+Ah, ah
+ふわりと
+跳ねる light
+
+00:02:57,320 --> 00:03:04,740 [Male]
+2Dの世界へ
+Take me there, take me there
+2Dの世界へ
+I can breathe, I can care
+
+00:03:04,740 --> 00:03:11,920 [Male]
+高く跳べ, higher now
+Bass falls, then I rise
+2Dの世界へ
+ここが俺の sky
+
+00:03:11,920 --> 00:03:19,329 [Male]
+2Dの世界へ
+Take me there, take me there
+2Dの世界へ
+I can breathe, I can care
+
+00:03:20,680 --> 00:03:29,260 [Male]
+現実の向こうで
+また会おう, I know
+2Dの世界へ
+俺は自由でいくよ
+
+00:03:31,020 --> 00:03:41,579 [Male]
+2Dの世界へ
+Take me there, take me there
+2Dの世界へ
+I’m alive, I’m alive
+    `,
   },
 ];
 
@@ -988,14 +1308,14 @@ function renderPlaylistsGrid() {
       const coverImages = playlist.songIndices
         .slice(0, 4)
         .map((i) => `<img src="${songs[i].cover}" alt="cover">`)
-        .join('');
-      
+        .join("");
+
       const totalSec = playlist.songIndices.reduce(
         (acc, i) => acc + parseDurationLabel(songs[i].durationLabel),
         0,
       );
       const mins = Math.round(totalSec / 60);
-      
+
       return `
         <article class="playlist-card" data-pl-index="${pi}">
           <div class="playlist-stack">
@@ -1013,7 +1333,7 @@ function renderPlaylistsGrid() {
         </article>
       `;
     })
-    .join('');
+    .join("");
 }
 
 function buildMosaic(covers) {
